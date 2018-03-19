@@ -1,0 +1,28 @@
+
+
+.quizlist{
+
+	display: flex;
+	flex-direction: row;
+
+	/*align-items: center;*/
+
+}
+
+.card{
+	min-width: 300px;
+	margin-left: 5px;
+	border: 0.5px solid red;
+}
+
+.card-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	/*align-items: center;*/
+}
+.bottom{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

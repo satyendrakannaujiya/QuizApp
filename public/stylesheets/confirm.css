@@ -1,0 +1,39 @@
+
+
+.header{
+
+	height: 60px;
+	width: 100%;
+	background-color: #000066;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/*border: 2px solid black;*/
+	align-items: center;
+	color: white;
+
+}
+
+.card-align{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.card{
+	width: 48%;
+	margin-top: 20px;
+
+}
+.login{
+	/*background-color: red;*/
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*justify-content: space-between;*/
+
+	
+}
+.btn{
+	width: 50%;
+}
