@@ -55,23 +55,32 @@
 </div>
 
 
+<!-- <h1>email::{{email}}</h1>
+<h1>password::{{password}}</h1> -->
+<p>{{password}}</p>
 
-  <div class="card ">
-  <div class="card-body login">
+<input type="text" value="{{password}}" id="pass" hidden>
 
-  	                            <div class="form-group">
+                          <div class="card ">
+                                  <div class="card-body login">
+  	                     <div class="form-group">
+
+                            <form action="/confirm.hbs" id="form" method="post">
+
                      			 	<label for="inputPassword">Email</label>	
-                     			 	<input type="text" class="form-control" value="satyendra250896@gmail.com" id="inputPassword">
+                     			 	<input type="text" class="form-control" value="{{email}}" id="email">
                      			 </div>
-
+                            <input type="text" value="{{quizid}}" id="quizid" name="quizid" hidden>
                      			  <div class="form-group">
                      			 	<label for="inputPassword">Password</label>	
-                     			 	<input type="password" class="form-control" placeholder="enter test-password" id="inputPassword">
+                     			 	<input type="password" class="form-control" placeholder="enter test-password"  id="inputPassword">
                      			 </div>
-   
-      
          
-         <button class="btn btn-success" onclick="login()">login</button>
+                            
+                             <!-- <input type="text" name="login" value="login" class="btn btn-success" onclick="login()"> -->
+                           </form>
+
+                            <button class="btn btn-success" onclick="login()">login</button>
 
   </div>
 </div>
@@ -81,9 +90,20 @@
 
 
         <script>
-        	
+        	// var pp = {{password}};
         	function login(){
-        		 window.location.href="confirm.hbs";
+               
+               var confirm = document.querySelector('#pass').value;
+            var password = document.querySelector("#inputPassword").value;
+            if(password == confirm)
+              {
+                console.log('within password match');
+        		    document.querySelector("#form").submit();
+
+              }else{
+              alert("invalid Password");
+              // return false;
+            }
         	}
         </script>
 	 <script src="../dashboard/vendor/jquery/jquery.min.js"></script>

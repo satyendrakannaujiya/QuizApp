@@ -312,43 +312,78 @@
 
        <!-- MY HTML-->
 
-                        <div class="modal-body">
-                         <form>
-                           <div class="form-group">
+       
+                            {{#if no_of_question}}
+                            <h1>Question No: {{ fixed }}</h1>      {{/if}}       
+                        <div class="modal-body" >
+                         <form action="./question_submit" method="post" id="form">
+                           <div class="form-group" >
                             <label for="inputUserName">Question</label> 
-                            <input type="text" class="form-control" placeholder="Type question.." id="inputUserName">
+                            <input type="text" class="form-control" placeholder="Type question.." id="Question" name="question" required>
                            </div>
+
+                            <input type="text" value="{{no_of_question}}" name="noofquestion" hidden>
+                            <input type="text" value="{{fixed}}" name="fixed" hidden>
+                                <input type="text" value="{{quiz_id}}"  name="quizid" hidden>
+           
+
+
                            <div class="form-group">
                             <label for="inputUserName">Option1</label> 
-                            <input type="text" class="form-control" placeholder="Type option1.." id="inputUserName">
+                            <input type="text" class="form-control" placeholder="Type option1.." id="option1" name="option1" required>
                            </div>
                            <div class="form-group">
                             <label for="inputUserName">Option2</label> 
-                            <input type="text" class="form-control" placeholder="Type option2.." id="inputUserName">
+                            <input type="text" class="form-control" placeholder="Type option2.." id="option2" name="option2" required>
                            </div>
                            <div class="form-group">
                             <label for="inputUserName">Option3</label> 
-                            <input type="text" class="form-control" placeholder="Type option3.." id="inputUserName">
+                            <input type="text" class="form-control" placeholder="Type option3.." id="option3" name="option3" required>
                            </div>
                            <div class="form-group">
                             <label for="inputUserName">Option4</label> 
-                            <input type="text" class="form-control" placeholder="Type option4.." id="inputUserName">
+                            <input type="text" class="form-control" placeholder="Type option4.." id="option4" name="option4" required>
                            </div>
 
-                           <div >
-                                 <p><strong>Set the right answer</strong></p>
-                                   <input type="radio" name="gender" value="male" checked> Option1<br>
-                                   <input type="radio" name="gender" value="female"> Option2<br>
-                                   <input type="radio" name="gender" value="other"> option3<br> 
-                                   <input type="radio" name="gender" value="other"> option4 
+                           
+                              <p><strong>Set the right answer</strong></p>
+                               <div id="options">
+                                   <input type="radio" name="correct" id="correct1" value="option1" > Option1<br>
+                                   <input type="radio" name="correct" id="correct2" value="option2"> Option2<br>
+                                   <input type="radio" name="correct" id="correct3" value="option3"> option3<br> 
+                                   <input type="radio" name="correct" id="correct4" value="option4"> option4 
                             </div>
                            
-                          <button class="btn btn-primary" id="submit">Next question</button>
-                                  
+                             <input type="submit" value="Next Question" class="btn btn-primary" id="nextquestion">
+                             <!-- <input type="submit" name="save" class="btn btn-primary" value="save quiz" id="save" style="display: none;"> -->
+                             <!-- <input type="" name=""> -->
                           </form>
+                          <button class="btn btn-primary" onclick="saveQuiz()" style="display: none;" id="save">save quiz</button>
+                   <!-- <button class="btn btn-primary" id="submit" onclick="SubmitQuestion()">Next question</button> -->
                         </div>
 
     <!-- Bootstrap core JavaScript-->
+    <script>
+      
+      // console.log("no of_ question " + {{no_of_question}});
+      var no_of_question = {{no_of_question}};
+       console.log("no fo question " + no_of_question);
+                if(no_of_question == 0){
+
+                  document.querySelector("#save").style.display = 'block';
+                  document.querySelector("#nextquestion").style.display = 'none';
+                  document.querySelector("#form").style.display='none';
+
+                }
+
+                function saveQuiz(){
+                      alert("Quiz Saved sucessfuly");
+
+                  window.location.href="./dashboard.hbs";
+                }
+
+       
+    </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->

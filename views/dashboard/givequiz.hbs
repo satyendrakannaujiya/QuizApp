@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>quiz-authentication</title>
+  <!-- Bootstrap core CSS-->
+  <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="./css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/givequiz.css">
+	<!-- <title>quiz-authentication</title> -->
+</head>
+<body>
+
+	<div class="header">
+    
+  
+    <h4>Quizster</h4>
+    <div class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="margin-right: 10px;">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </div>
+  </div>
+  <!-- <p class="endin"></p> -->
+  <div class="blink">
+      <span class="endin"></span>
+  </div>
+
+   <div class="container">
+         <div class="question" >
+          {{#each questions}}
+          <div class="card" onclick="showquestion('{{question_no}}')"   style="cursor: pointer;">
+                <div class="card-body">
+                      <strong>Question{{question_no}}: </strong><br>
+                      <input style="border: none;width: 100%;" type="text" value="{{question_details}}" readonly>
+                      </div>
+           </div>
+
+            {{/each}}
+
+         </div>
+        
+      <div id="displayarea" class="modal-body">
+
+
+  
+   
+        </div>
+
+{{#each questions}}
+
+   <div id="{{question_no}}" style="display: none; ">
+    <label >Question {{question_no}}</label> 
+   <p class="questionfinal"><strong>{{question_details}}</strong></p>
+   <!-- <div class="optiondetails"> -->
+   <p class="option"><input type="radio" id="r1" name="correct" value="option1" class="opt" >{{option1}}</p>
+   
+   <p class="option"><input type="radio" id="r2" name="correct" value="option1" class="opt" >{{option2}}</p>
+   <p class="option"><input type="radio" id="r3" name="correct" value="option1" class="opt" >{{option3}}</p>
+   
+   <p class="option"><input type="radio" id="r4" name="correct" value="option1" class="opt" >{{option4}}</p>
+
+
+        <!-- <form style="display: flex;flex-direction: row;" method="post"> -->
+    <!-- <div > -->
+      <!-- <input type="radio" id="r1" name="correct" value="option1" checked> option1 --><br>
+      <!-- <input type="radio" id="r2" name="correct" value="option2"> option2<br>
+      <input type="radio" id="r3" name="correct" value="option3"> option3  <br>
+      <input type="radio" id="r4" name="correct" value="option4"> option4  -->
+
+      <!-- </form> -->
+
+     
+      <button class="btn btn-primary" onclick="resultList('{{question_no}}','{{correcr_answer}}')">save</button>
+      <p><i>Please save the option before finishing the test</i></p>
+
+
+    </div>
+
+   {{/each}}
+ 
+           
+         </div>
+         <form action="/getResult" method="post" id="findResult">
+          <input type="text" id="correctanswer" name="correctanswer" hidden>
+          <input type="text" id="attempted" name="attempted" hidden>
+          <input type="text" id="quizid" value="{{quizid}}" name="quizid" hidden>
+        <!-- <h1>duration ::{{duration}}</h1> -->
+        
+      </form>
+      <button class="btn btn-success" id="savequiz" onclick="finishTest()">finish quiz</button>
+  
+     </div>
+
+        <script>
+
+            var result = [];
+          
+      var que = document.getElementById('1').innerHTML;
+      var displayarea = document.querySelector("#displayarea");
+      displayarea.innerHTML=que;
+      function showquestion(question){
+      var que = document.getElementById(question).innerHTML;
+      var displayarea = document.querySelector("#displayarea");
+      displayarea.innerHTML=que;
+      }
+      function resultList(question_no,correct){
+                
+
+                   var selected;
+                   if (document.getElementById('r1').checked) {
+                     selected = document.getElementById('r1').value;
+                   }
+                   else
+                    if (document.getElementById('r2').checked) {
+                     selected = document.getElementById('r2').value;
+                   }
+                   else
+                    if (document.getElementById('r3').checked) {
+                     selected = document.getElementById('r3').value;
+                   }
+                   else
+                    if (document.getElementById('r4').checked) {
+                     selected = document.getElementById('r4').value;
+                   }
+                  resultJson ={
+                       question_no : question_no,
+                       correct : correct,
+                       selected : selected
+                  }
+        
+                var found = result.find(element=>{
+                         return element.question_no == question_no;
+                })
+                if(found == undefined)
+                {
+                      result.push(resultJson);
+                }
+                else
+                {
+                     found.question_no = question_no,
+                     found.correct=correct,
+                     found.selected = selected
+                }
+                question_no = question_no+"1";
+                // document.querySelector("#question_no").style.background-color='blue';
+
+           }
+
+                function finishTest(){
+                  var answer = confirm("Are you sure to leave the test");
+                   if (answer) {
+                                countAnswer=0;
+                              var correctAnswer=0;
+                              var noofAttempted=0;
+                              result.forEach((elem)=>{
+
+                                  if(elem.correct == elem.selected)
+                                  {
+                                     countAnswer++;
+
+                                  }
+                                  noofAttempted++;
+                              });
+
+                              document.querySelector('#correctanswer').value=countAnswer;
+                              document.querySelector('#attempted').value=noofAttempted;
+                              document.querySelector('#findResult').submit();
+                    
+                        }
+             else {
+
+
+                     console.log('not sure');
+              }
+
+                }
+
+
+
+
+            
+           var a={{duration}};
+          
+            a=a*60;
+           
+            
+          var count = document.querySelector('.endin');
+
+          count.innerHTML=`Quiz ends  in ${a} min`;
+
+            
+            (function decrement(){
+               
+             var interval= setInterval(function(){ a-- ;
+              var second = 60;
+               console.log("Hello log"+a);
+               // count.innerHTML=`Quiz ends  in ${a} min`;
+               if(a==1)
+               {
+                console.log("1min");
+                  // count.innerHTML="Enter the Test..."
+                  // document.querySelector('#entertest').style.display='block';
+                  document.querySelector('#findResult').submit();
+                    clearInterval(interval);
+               }
+          (function decrementsec(){
+                  var interval1 = setInterval(function(){
+                        second--;
+                 count.innerHTML=`Quiz ends  in ${a} min ${second}sec`;
+                    if(second==0)
+                        {
+                          clearInterval(interval1);
+                        }
+
+                  },1000);
+               })();
+
+             }, 60000);
+            })();
+
+        
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </script>
+
+	  <script src="../dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="../dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../dashboard/vendor/chart.js/Chart.min.js"></script>
+    <script src="../dashboard/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../dashboard/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../dashboard/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="../dashboard/js/sb-admin-datatables.min.js"></script>
+    <script src="../dashboard/js/sb-admin-charts.min.js"></script>
+	
+</body>
+</html>

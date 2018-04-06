@@ -9,8 +9,8 @@ display: inline-block;
  max-width: 250px;
   /*height: 110px;*/
   margin: 3px;
-  border: solid 0.5px red;
-
+  /*border: solid 0.5px red;*/
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /*margin-left: 50px;*/
   margin-top: 5px;
 

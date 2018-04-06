@@ -60,13 +60,17 @@
   <div class="card-body login">
 
   	                          
-
+<p>ghjjh{{quizid}}</p>
                      			 
          
          <h4 class="count"></h4>
           
-         
-         <button class="btn btn-success" id="entertest" onclick="login()" style="display: none;">Enter the test..</button>
+         <form action="./givequiz" method="post">
+
+          <input type="text" value="{{quizid}}" name="quizid" hidden>
+         <button class="btn btn-success" id="entertest" type="submit" style="display: none;">Enter the test..</button>
+
+         </form>
 
   </div>
 </div>
@@ -87,7 +91,7 @@
              var interval= setInterval(function(){ a-- ;
                console.log("Hello log"+a);
                count.innerHTML=`quiz will start in ${a}second`;
-               if(a==0)
+               if(a==58)
                {
                 console.log("50sec");
                   count.innerHTML="Enter the Test..."

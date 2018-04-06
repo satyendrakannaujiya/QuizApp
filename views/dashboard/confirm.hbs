@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <title>quiz-authentication</title>
   <!-- Bootstrap core CSS-->
-  <link href="../dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -56,33 +56,35 @@
   </div>
 </div>
 
-
-
   <div class="card ">
   <div class="card-body login">
 
+
   	                        <div class="form-group">
+
+                              <form action="./startquiz" method="post">
+                                <input type="text" value="{{quizid}}" id="quizid" name="quizid" hidden>
                      			 	<label for="inputPassword">Name</label>	
-                     			 	<input type="text" class="form-control" value="satyendra kannaujiya" id="inputPassword">
+                     			 	<input type="text" class="form-control" value="{{full_name}}" id="inputPassword">
                      			 </div>
                            <div class="form-group">
                             <label for="inputPassword">Email</label>  
-                            <input type="text" class="form-control" value="satyendra250896@gmail.com" id="inputPassword">
+                            <input type="text" class="form-control" value="{{email}}" id="inputPassword">
                            </div>
                            <div class="form-group">
                             <label for="inputPassword">phone</label>  
-                            <input type="text" class="form-control" value="9918662891" id="inputPassword">
+                            <input type="text" class="form-control" value="{{phone}}" id="inputPassword">
                            </div>
                          <div class="form-group">
                             <label for="inputPassword">college</label>  
-                            <input type="text" class="form-control" value="MNNIT" id="inputPassword">
+                            <input type="text" class="form-control" value="{{college}}" id="inputPassword">
                            </div>
-
+                     <button class="btn btn-success" type="submit">confirm</button>
                      			
-   
+                       </form>
       
          
-         <button class="btn btn-success" onclick="confirm()">confirm</button>
+               
 
   </div>
 </div>

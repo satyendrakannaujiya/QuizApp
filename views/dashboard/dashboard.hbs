@@ -233,12 +233,12 @@
         </li> -->
 
         <div class="dropdown">
-           <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown"> satyendra
+           <button style="width: 150px;" class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">  {{name}}
            <span class="caret"></span></button>
          <ul class="dropdown-menu" style="background-color: #006666;margin-right: 10px;" >
-            <li style="display: flex;flex-direction: row;justify-content: space-around;border-bottom: 1px solid black;"><a href="#" style="text-decoration: none;color: white;"><strong>Profile</strong></a></li>
+            <li style="display: flex;flex-direction: row;justify-content: space-around;border-bottom: 1px solid black;"><a href="./update_profile.hbs" style="text-decoration: none;color: white;"><strong>Profile</strong></a></li>
 
-            <li style="display: flex;flex-direction: row;justify-content: space-around;"><a href="#" style="text-decoration: none;color: white;"><strong>Logout</strong></a></li>
+            <li style="display: flex;flex-direction: row;justify-content: space-around;"><a href="./logout" style="text-decoration: none;color: white;"><strong>Logout</strong></a></li>
             
       
       </ul>
@@ -1131,54 +1131,57 @@
      <!-- <div class="signup-quiz">Quizes you have signed up</div> -->
      <h4>Quizes you have signed up</h4>
 
-   <div class="quizlist">
-  <div class="card">
-  <div class="card-body">
-   <p><strong>DBMS basic quiz</strong></p>
-   <div class="bottom">
-    <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">Enter Quiz</button>
-   </div>
-  </div>
-</div>
- <div class="card">
-  <div class="card-body">
-   <p><strong>Operating system quiz</strong></p>
-   <div class="bottom">
-    <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">Enter Quiz</button>
-   </div>
-  </div>
-</div>
+    <div class="quizlist">
 
- <div class="card">
+
+    {{#each signed}}
+  <div class="card"> 
+
   <div class="card-body">
-   <p><strong>Check your Binary tree skill</strong></p>
+   <p><strong>{{quiz_title}}</strong></p>
+   <p><strong>{{subject}}</strong></p>
+   <p><strong>{{quiz_duration}}hrs</strong></p>
    <div class="bottom">
     <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">Enter Quiz</button>
+   <form action="/enter_quiz" method="post">
+      <input type="text" name="quizid" value="{{quiz_id}}" hidden="true">
+      <button type = "submit" class="btn btn-primary" >Enter Quiz</button>      
+    </form>
    </div>
   </div>
 </div>
-
+ {{/each}}
 
 
 </div>
 
   <!-- <div class="signup-quiz">Recent quiz you may Like</div> -->
   <h4 class="h42">Recent quiz you may Like</h4>
+    <!-- {{signedquiz}} -->
 
-  <div class="quizlist">
-  <div class="card">
+   <div class="quizlist">
+
+
+    {{#each unsignedquiz}}
+  <div class="card"> 
+
   <div class="card-body">
-   <p><strong>Aptitude-man and work</strong></p>
+   <p><strong>{{quiz_title}}</strong></p>
+   <p><strong>{{subject}}</strong></p>
+   <p><strong>{{quiz_duration}}hrs</strong></p>
    <div class="bottom">
     <a href="#">view details</a>
-    <button class="btn btn-success">Signup</button>
+    <form action="/signup_quiz" method="post">
+      <input type="text" name="quizid" value="{{quiz_id}}" hidden="true">
+    <button type = "submit" class="btn btn-success" >Sign up</button>      
+    </form>
    </div>
   </div>
 </div>
+ {{/each}}
 
+
+<!-- </div>
 <div class="card">
   <div class="card-body">
    <p><strong>Algorithm</strong></p>
@@ -1216,7 +1219,7 @@
   </div>
 </div>
 
-</div>
+</div> -->
 
     <footer class="sticky-footer">
       <div class="container">
@@ -1233,10 +1236,6 @@
 
  <script>
    
-
-   function enter_quiz(){
-    window.location.href="/quiz-auth.hbs";
-   }
 
   
  </script>

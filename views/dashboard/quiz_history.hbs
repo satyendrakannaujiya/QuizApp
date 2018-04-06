@@ -1131,45 +1131,29 @@
      <h4>Archieved Quizes</h4>
 
 
-     <div class="quizlist">
-  <div class="card">
-  <div class="card-body">
-   <p><strong>DBMS basic quiz</strong></p>
-   <p><strong>2march,2017</strong></p>
-   <div class="bottom">
-    <!-- <span>dsafsaf</span> -->
 
-    <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">view Quiz</button>
-   </div>
-  </div>
 
-</div>
- <div class="card">
+   {{#each quizhistory}}
+  <div class="card"> 
+
   <div class="card-body">
-   <p><strong>Operating system quiz</strong></p>
-   <strong>2march,2017</strong>
+   <p><strong>{{quiz_title}}</strong></p>
+   <p><strong>{{subject}}</strong></p>
+   <p><strong>{{quiz_duration}}hrs</strong></p>
    <div class="bottom">
     <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">view Quiz</button>
+    <form action="/signup_quiz" method="post">
+      <input type="text" name="quizid" value="{{quiz_id}}" hidden="true">
+    <button type = "submit" class="btn btn-primary" >Practice</button>      
+    </form>
    </div>
   </div>
 </div>
-
- <div class="card">
-  <div class="card-body">
-   <p><strong>Check your Binary tree skill</strong></p>
-   <strong>2march,2017</strong>
-   <div class="bottom">
-    <a href="#">view details</a>
-    <button class="btn btn-primary" onclick="enter_quiz()">view Quiz</button>
-   </div>
-  </div>
-</div>
+ {{/each}}
 
 
 
-</div>
+
 
    
 

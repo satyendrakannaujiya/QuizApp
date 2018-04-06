@@ -8,6 +8,7 @@ router.use(function timeLog (req, res, next) {
 })
 // define the home page route
 router.post('/', function (req, res) {
+	
   res.render("dashboard/create_quiz.hbs");
 })
 

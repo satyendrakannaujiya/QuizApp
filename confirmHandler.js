@@ -1,24 +1,23 @@
-var express = require('express')
-var router = express.Router()
+var express = require('express');
+const quizDb = require('./QuizDb.js');
+var router = express.Router();
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
-  console.log('Time: ', Date.now())
-  next()
-})
+  next();
+});
 // define the home page route
 router.post('/', function (req, res) {
-  res.render("dashboard/update_profile.hbs");
-})
+    quizDb.userDetails(req.user.uid,(result)=>{
+     res.render("dashboard/confirm.hbs",{
+     	email:req.user.uid,
+     	full_name: result.full_name,
+     	phone : result.mobile,
+     	college: result.college_name,
+     	quizid:req.body.quizid
+     });  	
+    });
+  
+});
 
-router.get("/",function(req,res){
-	console.log("within get of confirm quiz");
-	res.render("dashboard/confirm.hbs");
-})
-
-
-router.get('/about', function (req, res) {
-  res.send('About birds')
-})
-
-module.exports = router
+module.exports = router;

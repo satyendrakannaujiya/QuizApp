@@ -1,44 +1,41 @@
-var express = require('express')
-var router = express.Router()
+var express = require('express');
+var router = express.Router();
 var dbconnection = require('./QuizDb.js');
-var CircularJSON = require('circular-json');
 
-// middleware that is specific to this router
-router.use(function timeLog (req, res, next) {
-  console.log('Time: ', Date.now())
-  next()
-})
-// define the home page route
-router.post('/', function (req, res) {
-	//var x = new dbconnection();
+router.get('/', function (req, res) {
 
-	console.log("within post");
-	var x = dbconnection.getUserName();
+   var name,title,signedquiz;
+         dbconnection.getName((result)=>{
 
-	   // console.log("all object" +Object.getOwnPropertyNames(x));
-	// console.log("name "+JSON.stringify(x));
+                
+                var index = result[0].full_name.indexOf(' ');
+                  name = result[0].full_name.slice(0,index);
+         dbconnection.getQuizTitle((result)=>{
 
-	console.log("xxx" + x);
-
-	// console.log("fullname "+ x.full_name);
-  res.render("dashboard/dashboard.hbs");
-})
-
-router.get("/",function(req,res){
-	//var x = new dbconnection();
-
-   
-	console.log("within get");
-
-	var x = dbconnection.getUserName();
-	console.log("name "+x);
-
-	res.render("dashboard/dashboard.hbs");
-})
+              
+               title = result;
 
 
-router.get('/about', function (req, res) {
-  res.send('About birds')
-})
+              dbconnection.getAllUnsignedQuiz((result)=>{
 
-module.exports = router
+              
+               signedquiz = result;
+              res.render("dashboard/dashboard.hbs",{
+                  name:name,
+                  title:title,
+                  signedquiz:signedquiz
+              });
+
+          });
+          });
+         });  
+
+   });
+
+
+
+
+
+module.exports = {
+  router
+}

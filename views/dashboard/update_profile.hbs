@@ -1132,29 +1132,24 @@
 
 <div class="modal-body">
                           
-                          <form>
+                          <form action="./update_profile.hbs" method="post">
                            <div class="form-group">
                             <label for="inputUserName">FullName</label> 
-                            <input type="text" class="form-control" value="satyendra kannaujiya" id="inputUserName">
+                            <input type="text" class="form-control" name="fullName" value="{{full_name}}">
                            </div>
 
                            <div class="form-group">
                             <label for="inputUserName">Email</label>  
-                            <input type="text" class="form-control" value="satyednra250896@gmail.com" id="inputUserName">
+                            <input type="text" class="form-control" name="email" value="{{email}}" readonly>
                            </div>
 
                             <div class="form-group">
                             <label for="inputUserName">Mobile</label> 
-                            <input type="text" class="form-control" value="9918662891" id="inputUserName">
+                            <input type="text" class="form-control" name="mobile" value="{{phone}}">
                            </div>
-
-
-                           
-                           
-
                            <div class="form-group">
                             <label for="inputUserName">College name</label> 
-                            <input type="text" class="form-control" value="MNNIT" id="inputUserName">
+                            <input type="text" class="form-control" name="collegeName" value="{{college}}">
                            </div>
 
                                     <div style="display: flex;flex-direction: row;">
@@ -1195,7 +1190,7 @@
 
  <script>
    
-
+   
    function enter_quiz(){
     window.location.href="../quiz-auth/quiz-auth.html";
    }
@@ -1221,5 +1216,4 @@
     <script src="js/sb-admin-datatables.min.js"></script>
     <script src="js/sb-admin-charts.min.js"></script>
 </body>
-
 </html>
