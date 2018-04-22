@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Result</title>
+  <title>History result</title>
   <!-- Bootstrap core CSS-->
   <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -17,7 +17,7 @@
   <!-- Custom styles for this template-->
   <link href="./css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/result.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/Historyresult.css">
 	<!-- <title>quiz-authentication</title> -->
 </head>
 <body>
@@ -25,16 +25,16 @@
 	<div class="header">
     
   
-    <a href="dashboard.hbs" style="text-decoration: none;color: white;"><h4>Quister</h4></a>
-    <!-- <div class="nav-item">
+   <a href="dashboard.hbs" style="text-decoration: none;color: white;"><h4>Quister</h4></a>
+    <div class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="margin-right: 10px;">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </div> -->
+        </div>
   </div>
 
   <div class="container">
   <h2 style="display: flex;flex-direction: row;justify-content: space-around;"><strong>Result</strong></h2>
-  <form action="/saveResult" method="post">
+  <form action="#" method="post">
 
     <input type="text" value="{{quizid}}" name="quiz_id" hidden>
     <div class="form-group">
@@ -43,7 +43,7 @@
     </div>
     <div class="form-group">
       <label for="pwd">No of attempted Question</label>
-      <input type='text' class="form-control" id="pwd" value="{{noOfAttempted}}" name="attempted" readonly>
+      <input type='text' class="form-control" id="pwd" value="{{noOfAttempted}}" name="pwd" readonly>
     </div>
     <div class="form-group">
       <label for="pwd">Total correct</label>
@@ -54,8 +54,9 @@
       <input type="text" class="form-control" id="pwd" value="{{correctanswer}}/{{noofquestion}}" name="pwd" readonly>
     </div>
     
-       <button class="btn btn-success">Ok</button>
+      
   </form>
+   <button class="btn btn-success" onclick="goToDashboard()">Ok</button>
  
 </div>
 <script>

@@ -15,7 +15,7 @@ router.post('/', function (req, res) {
 
             noofquestion=result;
 
-            res.render('dashboard/result.hbs',{
+            res.render('dashboard/Historyresult.hbs',{
                   quizid:quizId,
             	 noofquestion:noofquestion,
             	 noOfAttempted:noOfAttempted,

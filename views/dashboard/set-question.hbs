@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SB Admin - Start Bootstrap Template</title>
+  <title>Set Question</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -17,43 +17,47 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/set-question.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="dashboard.html">Quister</a>
+    <a class="navbar-brand" href="dashboard.hbs">Quister</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="dashboard.html">
+          <a class="nav-link" href="dashboard.hbs">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="create_quiz.html">
+          <a class="nav-link" href="create_quiz.hbs">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">CreateQuiz</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="quiz_history.html">
+          <a class="nav-link" href="quiz_history.hbs">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">QuizHistory</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="update_profile.html">
+          <a class="nav-link" href="update_profile.hbs">
             <i class="fa fa-fw fa-wrench"></i>
             <span class="nav-link-text">Update Profile</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="Administration.html">
+          <a class="nav-link" href="Administration.hbs">
             <i class="fa fa-fw fa-user"></i>
             <span class="nav-link-text">Admin</span>
           </a>
@@ -227,10 +231,21 @@
             </div>
           </form>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
+        </li> -->
+        <div class="dropdown">
+           <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown"> satyendra
+           <span class="caret"></span></button>
+         <ul class="dropdown-menu" style="background-color: #006666;margin-right: 10px;" >
+            <li style="display: flex;flex-direction: row;justify-content: space-around;border-bottom: 1px solid black;"><a href="#" style="text-decoration: none;color: white;"><strong>Profile</strong></a></li>
+
+            <li style="display: flex;flex-direction: row;justify-content: space-around;"><a href="./logout" style="text-decoration: none;color: white;"><strong>Logout</strong></a></li>
+            
+      
+      </ul>
+  </div>
       </ul>
     </div>
   </nav>
@@ -312,6 +327,32 @@
 
        <!-- MY HTML-->
 
+
+       <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+           <!--  <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Select</h4>
+            </div> -->
+            <div class="modal-body">
+
+              <div style="display: flex;flex-direction: row;justify-content: space-around;">
+                <form action="./selectfile.hbs" method="get">
+                    <input type="text" value="{{quiz_id}}"  name="quizid" hidden>
+                <button class="btn btn-primary" style="height: 40px;width: 150px">Select File</button>
+                </form>
+                <form action="./set-question.hbs">
+               <!--  <button class="btn btn-success" style="height: 40px;width:150px;margin-left: 20px;">Set Question</button> -->
+
+               <button class="btn btn-secondary" type="button" data-dismiss="modal" style="height: 40px;width: 150px;margin-left: 20px;">Set Question</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
        
                             {{#if no_of_question}}
                             <h1>Question No: {{ fixed }}</h1>      {{/if}}       
@@ -364,9 +405,23 @@
 
     <!-- Bootstrap core JavaScript-->
     <script>
+        
+         var no_of_question = {{no_of_question}};
+
+         var cond = {{fixed}};
+   console.log("ques " + no_of_question) ;
+     var flag=true;
       
+        if(cond==1)
+        {
+      $(document).ready(function(){
+    $("#myModal").modal('show');
+      flag=false;
+     });
+
+    }
       // console.log("no of_ question " + {{no_of_question}});
-      var no_of_question = {{no_of_question}};
+     
        console.log("no fo question " + no_of_question);
                 if(no_of_question == 0){
 
@@ -381,6 +436,7 @@
 
                   window.location.href="./dashboard.hbs";
                 }
+
 
        
     </script>

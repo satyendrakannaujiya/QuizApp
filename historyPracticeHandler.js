@@ -11,18 +11,24 @@ router.post('/', function (req, res) {
 
          quizDb.getAllQuestion(quizid,(result)=>{
                  var noofquestion = result;
-                 
+                 var  questionsWithStatus = noofquestion.map(question=>{
+                         return {
+                              question,
+                              activeClass:"active"
+                         }
+                 });
 
-           // currentquestion = questionsWithStatus[0];
+           currentquestion = questionsWithStatus[0];
                 quizDb.getQuizDuration(quizid,(duration)=>{
 
-                res.render('dashboard/givequiz.hbs',{
+                res.render('dashboard/practice.hbs',{
 
                  quizid : quizid,
                  email : email,
                  questions : noofquestion,
-                 duration:duration
-                
+                 duration:duration,
+                 questionsWithStatus:questionsWithStatus,
+                 currentquestion:currentquestion
 
                 });
 

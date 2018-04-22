@@ -10,36 +10,46 @@ router.get("/",function(req,res){
 
       quizdb.getUserByEmail(email,(result)=>{
                   var userid = result;
-                  var quizhistory = [];
-                  var counter=0;
-            quizdb.getQuizHistory(userid,(result)=>{
+                  
+                  quizdb.getQuizHistory(userid,(result)=>{
 
-            	console.log("length " + result.length);
+                            var quizhistory=result;
 
-            	result.forEach((element,index,array)=>{
+                        res.render("dashboard/quiz_history.hbs",{
+                                       quizhistory:quizhistory
+                               });
+                  })
 
-            		console.log(element);
+              
 
-            		console.log("quiz_id  " + element.quiz_id);
+            // quizdb.getQuizHistory(userid,(result)=>{
+
+            // 	console.log("length " + result.length);
+
+            // 	result.forEach((element,index,array)=>{
+
+            // 		console.log(element);
+
+            // 		console.log("quiz_id  " + element.quiz_id);
                       
-                      quizdb.getQuizDetailsById(element.quiz_id,(result)=>{
+            //           quizdb.getQuizDetailsById(element.quiz_id,(result)=>{
 
-                      	console.log("result  quiz details  " + result);
+            //           	console.log("result  quiz details  " + result);
 
-                      	    quizhistory.push(result);
-                      	    counter++;
-                      	    if(counter == array.length)
-                      	    {
-                      	    	 console.log("quizhistory " + quizhistory);
-                      	    	 res.render("dashboard/quiz_history.hbs",{
-           	                          quizhistory:quizhistory
-                              });
+            //           	    quizhistory.push(result);
+            //           	    counter++;
+            //           	    if(counter == array.length)
+            //           	    {
+            //           	    	 console.log("quizhistory " + quizhistory);
+            //           	    	 res.render("dashboard/quiz_history.hbs",{
+           	//                           quizhistory:quizhistory
+            //                   });
 
 
-                      	    }
-                      })
+            //           	    }
+            //           })
 
-            	})
+            // 	})
 
             	
 
@@ -47,7 +57,7 @@ router.get("/",function(req,res){
            
 
 
-            })   
+           // })   
       })
 	
 })

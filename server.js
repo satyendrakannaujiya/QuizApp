@@ -1,14 +1,17 @@
 var express = require('express');
-var router = require('./routehandler.js');
+// var router = require('./routehandler.js');
 var mysql = require('mysql');
 var dbconnection = require('./QuizDb.js');
 var createHandler = require('./createHandler.js');
+var saveResultHandler = require('./saveResultHandler.js');
 var historyHandler = require('./quizHistoryHandler.js');
 const start_quizHandler = require('./startquizHandler.js');
 var updateProfileHandler = require('./updateProfileHandler.js');
 const getResultHandler = require('./getResultHandler.js');
 var adminHandler = require('./adminHandler.js');
+var editQuizHandler = require('./editQuizHandler.js');
 var quizAuthhandler = require('./quizAuthHandler.js');
+var historyResultHandler = require('./historyResultHandler.js');
 var setQuestionHandler = require('./setQuestionHandler.js');
 var startHandler = require('./startHandler.js');
 var confirmHandler = require('./confirmHandler.js');
@@ -17,6 +20,12 @@ const signup_quizHandler = require('./signup_quizHandler.js');
 var signupHandler = require('./signupHandler.js');
 var question_submitHandler = require('./question_submitHandler');
 var givequizHandler = require('./givequizHandler.js');
+var historypracticeHandler = require('./historyPracticeHandler.js');
+var changeQuestionHandler = require('./changeQuestionHandler.js');
+var viewResultHandler = require('./viewResultHandler.js');
+var teamhandler = require('./teamhandler.js');
+var selectFileHandler = require('./selectFileHandler.js');
+var uploadfileHandler = require('./uploadfileHandler.js');
 var hbs  = require('hbs');
 var bodyParser = require('body-parser');
 var Strategy = require('passport-local');
@@ -98,7 +107,7 @@ app.use('/start.hbs',require('connect-ensure-login').ensureLoggedIn(loginRequire
 
 app.use('/confirm.hbs',require('connect-ensure-login').ensureLoggedIn(loginRequired),confirmHandler);
 
-app.use('/signup',require('connect-ensure-login').ensureLoggedIn(loginRequired),signupHandler);
+app.use('/signup',signupHandler);
 app.use('/question_submit',require('connect-ensure-login').ensureLoggedIn(loginRequired),question_submitHandler);
 app.use('/signup_quiz',require('connect-ensure-login').ensureLoggedIn(loginRequired),signup_quizHandler);
 app.use('/enter_quiz',require('connect-ensure-login').ensureLoggedIn(loginRequired),enter_quizHandler);
@@ -106,6 +115,20 @@ app.use('/startquiz',require('connect-ensure-login').ensureLoggedIn(loginRequire
 
 app.use('/givequiz',require('connect-ensure-login').ensureLoggedIn(loginRequired),givequizHandler);
 app.use('/getResult',require('connect-ensure-login').ensureLoggedIn(loginRequired),getResultHandler);
+
+app.use('/saveResult',require('connect-ensure-login').ensureLoggedIn(loginRequired),saveResultHandler);
+app.use('/practice',require('connect-ensure-login').ensureLoggedIn(loginRequired),historypracticeHandler);
+app.use('/getHistoryResult',require('connect-ensure-login').ensureLoggedIn(loginRequired),historyResultHandler);
+app.use('/editQuiz',require('connect-ensure-login').ensureLoggedIn(loginRequired),editQuizHandler);
+app.use('/changeQuestion',require('connect-ensure-login').ensureLoggedIn(loginRequired),changeQuestionHandler);
+app.use('/changeQuestion',require('connect-ensure-login').ensureLoggedIn(loginRequired),changeQuestionHandler);
+app.use('/viewresult.hbs',require('connect-ensure-login').ensureLoggedIn(loginRequired),viewResultHandler);
+app.use('/team.hbs',require('connect-ensure-login').ensureLoggedIn(loginRequired),teamhandler);
+app.use('/selectfile.hbs',require('connect-ensure-login').ensureLoggedIn(loginRequired),selectFileHandler);
+app.use('/uploadfile',require('connect-ensure-login').ensureLoggedIn(loginRequired),uploadfileHandler);
+
+
+
 
 
 app.post('/dashboard.hbs',  passport.authenticate('local',{ failureRedirect: loginFailure }),function (req, res) {

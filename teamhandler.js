@@ -9,7 +9,7 @@ router.post('/', function (req, res) {
 
 router.get("/",function(req,res){
 	console.log("within get of create quiz");
-	res.render("dashboard/create_quiz.hbs");
+	res.render("dashboard/team.hbs");
 })
 
 

@@ -1,0 +1,12 @@
+what is your name?
+satyam
+satendra
+monish
+rishabh
+1
+what is your branc?
+cs
+it
+mca
+mech
+3

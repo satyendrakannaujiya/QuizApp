@@ -1,22 +1,19 @@
-var express = require('express');
-const quizDb = require('./QuizDb.js');
+var express = require('express')
 var router = express.Router();
-
+var quizdb = require('./QuizDb.js');
 
 router.post('/', function (req, res) {
-	
-
-         var email = req.user.uid;
-         var quizid = req.body.quizid;
-
-         quizDb.getAllQuestion(quizid,(result)=>{
+    var email = req.user.uid;
+    var quizid = req.body.quizid;
+     quizdb.getAllQuestion(quizid,(result)=>{
                  var noofquestion = result;
                  
 
-           // currentquestion = questionsWithStatus[0];
-                quizDb.getQuizDuration(quizid,(duration)=>{
+           //currentquestion = questionsWithStatus[0];
+                quizdb.getQuizDuration(quizid,(duration)=>{
 
-                res.render('dashboard/givequiz.hbs',{
+                 
+                res.render('dashboard/editQuiz.hbs',{
 
                  quizid : quizid,
                  email : email,
@@ -32,9 +29,10 @@ router.post('/', function (req, res) {
         
 
          })
-      
+
   
 })
+
 
 
 

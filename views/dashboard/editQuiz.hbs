@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Edit quiz</title>
+  <!-- Bootstrap core CSS-->
+  <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="./css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/givequiz.css">
+	<!-- <title>quiz-authentication</title> -->
+</head>
+<body>
+
+	<div class="header">
+    
+  
+   <a href="dashboard.hbs" style="text-decoration: none;color: white;"><h4>Quister</h4></a>
+    <div class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="margin-right: 10px;">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </div>
+  </div>
+  <!-- <p class="endin"></p> -->
+  <div class="blink">
+      <span class="endin"></span>
+  </div>
+
+
+
+
+
+   <div class="container">
+         <div class="question">
+          {{#each questions}}
+
+            <!-- {{question_no}}+{{10}} -->
+          <!-- {{question.question_no}} -->
+          <div class="card" onclick="showquestion('{{question_no}}')"   id="{{question_no}}question" style="cursor: pointer;">
+                <div class="card-body">
+                      <strong>Question{{question_no}}: </strong><br>
+                      <input id="{{question_no}}option"style="border: none;width: 100%;" type="text" value="{{question_details}}" readonly>
+                      <!-- <p class="pinquestion">{{question_details}}</p> -->
+                      </div>
+           </div>
+
+            {{/each}}
+
+         </div>
+        
+      <div id="displayarea" class="modal-body" >
+
+
+   
+        </div>
+
+
+{{#each questions}}
+
+
+   
+
+      
+   <div id="{{question_no}}" style="display: none; ">
+     <form action="./changeQuestion" id="changeQuestion" method="post">
+    <input type="text" name="quizid" value="{{quiz_id}}" hidden>
+      <input type="text" name="questionid" value="{{question_id}}" hidden>
+    <label >Question {{question_no}}</label> 
+    
+    <input rows="3" cols="50" style="width: 100%;" name="question" id="qq"
+      value="{{question_details}}">
+    <!-- </textarea> -->
+    
+    <label >Option1</label> 
+   <input style="width: 100%;" name="option1"
+      value="{{option1}}">
+    <!-- </textarea> -->
+    <label >Option2</label> 
+   <input  style="width: 100%;" name="option2"
+      value="{{option2}}">
+    <!-- </textarea> -->
+    <label >Option3</label> 
+   <input  style="width: 100%;" name="option3"
+      value="{{option3}}">
+    <!-- </textarea> -->
+    <label >Option4</label> 
+   <input  style="width: 100%;" name="option4"
+      value="{{option4}}">
+    <!-- </textarea> -->
+    <!-- <input type="text" name="correct" hidden id="correct"> -->
+
+      <p>Update the right Answer</p>
+      <input type="radio" id="r1" name="correct" value="option1" checked>option1
+      <input type="radio" id="r2" name="correct" value="option2"> option2
+      <input type="radio" id="r3" name="correct" value="option3"> option3 
+      <input type="radio" id="r4" name="correct" value="option4"> option4
+     <br>
+      <!-- <button class="btn btn-primary" type="submit">save</button> -->
+
+      <p><i>Please save Updated Question</i></p>
+
+
+  <input type="submit" class="btn btn-success" value="save">
+
+    </form>
+      <!-- </form> -->
+     
+
+    </div>
+
+   {{/each}}
+ 
+           
+         </div>
+         
+      <button class="btn btn-success" id="savequiz" onclick="saveQuiz()">Save quiz</button>
+  
+     </div>
+
+        <script>
+
+            var result = [];
+          
+      var que = document.getElementById('1').innerHTML;
+      var displayarea = document.querySelector("#displayarea");
+      displayarea.innerHTML=que;
+
+      function showquestion(question){
+
+       
+      var que = document.getElementById(question).innerHTML;
+      var displayarea = document.querySelector("#displayarea");
+      displayarea.innerHTML=que;
+      }
+      // function updateQuestion(question_no){
+                
+      //              var xx=document.querySelector('#qq').value;
+      //              console.log('xx ' + xx);
+      //          // console.log("dssf "+ question_no + {{flag}})
+      //              var selected;
+      //              if (document.getElementById('r1').checked) {
+      //                selected = document.getElementById('r1').value;
+      //              }
+      //              else
+      //               if (document.getElementById('r2').checked) {
+      //                selected = document.getElementById('r2').value;
+      //              }
+      //              else
+      //               if (document.getElementById('r3').checked) {
+      //                selected = document.getElementById('r3').value;
+      //              }
+      //              else
+      //               if (document.getElementById('r4').checked) {
+      //                selected = document.getElementById('r4').value;
+      //              }
+      //              document.querySelector('#correct').value=selected;
+      //               var perti = question_no+'question';
+      //            var perti1 = question_no+'option';
+
+      //         document.getElementById(perti).style.backgroundColor="#eeccff";
+
+      //         document.getElementById(perti1).style.backgroundColor="#eeccff";
+
+      //         document.querySelector('#changeQuestion').submit();
+
+      //      }
+
+          var count = document.querySelector('.endin');
+
+          count.innerHTML=`Edit Your Quiz`;
+
+          function saveQuiz(){
+
+                window.location.href="./dashboard.hbs"
+          }
+
+            
+           
+
+
+      </script>
+
+	  <!-- <script src="../dashboard/vendor/jquery/jquery.min.js"></script> -->
+    <!-- <script src="../dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Core plugin JavaScript-->
+    <!-- <script src="../dashboard/vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    <!-- Page level plugin JavaScript-->
+    <!-- <script src="../dashboard/vendor/chart.js/Chart.min.js"></script> -->
+    <!-- <script src="../dashboard/vendor/datatables/jquery.dataTables.js"></script> -->
+    <!-- <script src="../dashboard/vendor/datatables/dataTables.bootstrap4.js"></script> -->
+    <!-- Custom scripts for all pages-->
+    <!-- <script src="../dashboard/js/sb-admin.min.js"></script> -->
+    <!-- Custom scripts for this page-->
+    <!-- <script src="../dashboard/js/sb-admin-datatables.min.js"></script> -->
+    <!-- <script src="../dashboard/js/sb-admin-charts.min.js"></script> -->
+	
+</body>
+</html>

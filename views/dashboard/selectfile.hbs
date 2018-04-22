@@ -21,6 +21,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/confirm.css">
 	<!-- <title>quiz-authentication</title> -->
+
+  <style>
+   .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+  </style>
 </head>
 <body>
 
@@ -35,63 +58,41 @@
 	</div>
 
 
-	<div class="card-align">
-		
-	<div class="card">
+
+
+
+<div class="card">
   <div class="card-body">
    
-        <h3>Important point for this test</h3>
+     {{quizid}}
+        <h3>File must be in the following format</h3>
 
         <ul>
-      <li>The quizzes consists of questions carefully designed to help you self-assess your comprehension.</li>
-      <li>Each question in the quiz is of multiple-choice or "true or false" format.</li>
-      <li>Click on the button next to your response that is based on the Question.</li>
-      <li>After responding to a question click on next  question</li>
-      <li>If you select an incorrect response for a question, you can try again until you get the correct response</li>
-      <li>After responding All you can finish the quiz before the time by clicking on finish test.</li>
-      
-       <li>The total score for the quiz is based on your responses to all questions</li>
-      <li>After Finishing the quiz you will get the Result.</li>
+          <li>file must be in .txt format</li>
+     <li>For every Question the pattern is...</li>
+     <li>First line is Question</li>
+     <li>then next four line is four option</li>
+     <li>And then last line is corrcet option</li>
+      <form  action="./uploadfile" style="display: flex;flex-direction: column;" method="post">
+      <input type="text" value="{{quizid}}"  name="quizid" hidden>
+     <input name="myFile" type="file" >
+     <input type="submit" value="submit" class="btn btn-success" style="width: 100px;margin-top: 5px;">
+    
+  </form>
+
+
+  
 </ul>  
 
   </div>
 </div>
 
-  <div class="card ">
-  <div class="card-body login">
 
 
-  	                        <div class="form-group">
+  
 
-                              <form action="./startquiz" method="post">
-                                <input type="text" value="{{quizid}}" id="quizid" name="quizid" hidden>
-                     			 	<label for="inputPassword">Name</label>	
-                     			 	<input type="text" class="form-control" value="{{full_name}}" id="inputPassword">
-                     			 </div>
-                           <div class="form-group">
-                            <label for="inputPassword">Email</label>  
-                            <input type="text" class="form-control" value="{{email}}" id="inputPassword">
-                           </div>
-                           <div class="form-group">
-                            <label for="inputPassword">phone</label>  
-                            <input type="text" class="form-control" value="{{phone}}" id="inputPassword">
-                           </div>
-                         <div class="form-group">
-                            <label for="inputPassword">college</label>  
-                            <input type="text" class="form-control" value="{{college}}" id="inputPassword">
-                           </div>
-                     <button class="btn btn-success" type="submit">confirm</button>
-                     			
-                       </form>
-      
-         
-               
 
-  </div>
-</div>
-
-	</div>
-
+	
     <script>
       
 

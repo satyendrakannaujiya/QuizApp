@@ -19,7 +19,7 @@ display: inline-block;
 .bottom{
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 .quizlist{
 	display: block;

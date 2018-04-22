@@ -24,9 +24,10 @@ create table quiz(
          subject varchar(1000),
          quiz_title varchar(10000),
          no_of_question int ,
-         quiz_duration int,
+         quiz_duration float,
          expiry_date date,
-         quiz_password varchar(1000)
+         quiz_password varchar(1000),
+         quiz_status int default 0
 );
 
 create table quiz_status(
@@ -70,3 +71,14 @@ select * from quiz inner join quiz_status on quiz.quiz_id=quiz_status.quiz_id wh
 select * from quiz inner join quiz_status on quiz.quiz_id!=quiz_status.quiz_id;
 
 SELECT * FROM quiz WHERE NOT EXISTS (SELECT * FROM quiz_status WHERE quiz_status.user_id=1 and quiz_status.quiz_id = quiz.quiz_id);
+
+create table result(
+
+    quiz_title varchar(100),
+   user_id  varchar(100),
+   quiz_id  varchar(100),
+   no_of_question int,
+   correct int,
+   attempted int
+)
+    

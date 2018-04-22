@@ -10,7 +10,7 @@ exports.getName = function(user_id,callback){
  });
 }
 exports.getQuizTitle = function(user_id,callback){
-       dbconnection.getResult(`select * from quiz inner join quiz_status on quiz.quiz_id=quiz_status.quiz_id where quiz_status.user_id=\'${user_id}\' and quiz_status.status=1`,function(error,result){
+       dbconnection.getResult(`select * from quiz where user_id='${user_id}' and quiz_status=1 `,function(error,result){
 
              if(!error)
              {
@@ -22,7 +22,7 @@ exports.getQuizTitle = function(user_id,callback){
  });
 }
 exports.getAllUnsignedQuiz = function(user_id,callback){
-	   dbconnection.getResult(`SELECT * FROM quiz WHERE NOT EXISTS (SELECT * FROM quiz_status WHERE quiz_status.user_id=\'${user_id}\' and quiz_status.quiz_id = quiz.quiz_id)`
+	   dbconnection.getResult(`select * from quiz where quiz_status=0;`
                            ,function(error,result){
 	   	                     if(!error)
 	   	      	             callback(result);
@@ -39,7 +39,7 @@ exports.saveQuiz = (data,callback)=>{
     var xx= new_id+1;
     dbconnection.getResult(`update UniqId set id= ${xx}`,(error,result)=>{
         dbconnection.getResult(`insert into quiz values('${data.user_id}','${data.quiz_id}','${data.subject}','${data.title}','${data.no_of_question}'
-            ,'${data.quiz_duration}','${data.date}','${data.password}');`,function(error,result){
+            ,'${data.quiz_duration}','${data.date}','${data.password}',0);`,function(error,result){
                   if(!error)
                     callback(result);                 
                   else
@@ -149,7 +149,7 @@ dbconnection.getResult(`update UniqId set id= ${data}`,(error,result)=>{
 }
 
 exports.signupQuiz =  (quizid,userid,callback)=>{
-  dbconnection.getResult(`insert into quiz_status values ('${userid}','${quizid}',1)`,(error,result)=>{
+  dbconnection.getResult(`update quiz set quiz_status=1 where user_id='${userid}' and quiz_id='${quizid}';`,(error,result)=>{
          if (!error) {
           callback("sucessfully");
          }
@@ -180,7 +180,7 @@ exports.userDetails = (userid,callback)=>{
 }
 
 exports.getQuizHistory = (userid,callback)=>{
-  dbconnection.getResult(`select * from quiz_status where user_id='${userid}' and status=2`,(error,result)=>{
+  dbconnection.getResult(`select * from quiz where user_id='${userid}' and quiz_status=2`,(error,result)=>{
     if(!error)
       callback(result);
     else
@@ -213,7 +213,8 @@ exports.getAllQuestion = (quizid,callback)=>{
 
         if(!error)
         {
-          console.log("result of getAllQuestion " + result) ;
+          // console.log("result of getAllQuestion " + result) ;
+            //console.dir(result);
             callback(result);
         }
         else{
@@ -250,4 +251,92 @@ exports.getQuizDuration= (quizid,callback)=>{
           console.log("error in quiz duration ");
        }
     })
+}
+
+exports.saveResult= (data,callback)=>{
+
+    console.log("within save Result");
+
+      dbconnection.getResult(`insert into result values ('${data.quiz_title}','${data.userid}','${data.quiz_id}',${data.no_of_question},
+          ${data.correct},${data.attempted});`,(error,result)=>{
+
+               if(!error){
+                  console.log("result saved sucessfully");
+                  callback("sucesss");
+
+
+               }
+               else
+               {
+                console.log("error in saving result");
+               }
+          })
+}
+exports.updateQuiz = (userid,quizid,callback)=>{
+
+     dbconnection.getResult(`update quiz set quiz_status=2 where user_id='${userid}' and quiz_id='${quizid}';`,(error,result)=>{
+         if (!error) {
+
+          console.log("updated");
+          callback("sucessfully");
+         }
+         else
+          console.log("error in sign up insert");
+  });
+}
+
+exports.getQuizByUserId = (userid,callback)=>{
+
+       dbconnection.getResult(`select * from quiz where user_id='${userid}'`,(error,result)=>{
+
+            if(!error){
+                   callback(result);
+            }
+            else{
+               
+               console.log("error in getQuizByUserId");
+            }
+       });
+}
+exports.UpdateQuestion = (quizid,questionid,data,callback)=>{
+
+    dbconnection.getResult(`update quiz_question set question_details='${data.question}',option1='${data.option1}',option2='${data.option2}',option3='${data.option3}',option4='${data.option4}',correcr_answer='${data.correct}'where question_id='${questionid}';`,(error,result)=>{
+
+                             if(!error){
+                                  callback("question updated sucessfully");
+                             }
+                             else{
+                              console.log("error in UpdateQuestion");
+                             }
+
+    })
+}
+exports.getResultByUserId = (userid,callback)=>{
+
+     dbconnection.getResult(`select * from result where user_id='${userid}'`,(error,result)=>{
+
+           if(!error)
+           {
+             callback(result);
+           }
+           else{
+            console.log("Error within getResultByUserid");
+           }
+
+     })
+}
+
+exports.getQuizTitleForResult=(quizid,callback)=>{
+  // var xx='quiz318';
+
+         dbconnection.getResult(`select quiz_title from quiz where quiz_id='${quizid}'`,(error,result)=>{
+
+                 if(!error)
+                 {
+                  callback(result[0].quiz_title);
+                 }else{
+                  console.log("error within getquizTitle");
+                 }
+
+         })
 }
